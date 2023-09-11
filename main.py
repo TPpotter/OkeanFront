@@ -8,6 +8,11 @@ def main():
     if request.method == 'GET':
         return render_template('base.html')
 
+@app.route('/model')
+def second():
+    if request.method == 'GET':
+        return render_template('model.html')
+
 
 if __name__ == "__main__":
     app.run(host='localhost', port=8000)
