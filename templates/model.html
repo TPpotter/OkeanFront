@@ -68,16 +68,15 @@
 <script>
     function check() {
 
-        if (!(URL.createObjectURL(event.target.files[0]))) {
+        if (!(document.getElementById('preview').src)) {
             info = 'НЕТ ФОТО';
         }
         if (0) {
             info = 'Пользователь не опознан';
         }
-        if (URL.createObjectURL(event.target.files[0])) {
+        if (document.getElementById('preview').src) {
             info = 'Пользователь: Филинов Леонид. Доступ Разрешён.'
         }
-        alert(info)
         document.getElementById('information').innerHTML = info;
     }
 </script>
