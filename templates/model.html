@@ -11,8 +11,8 @@
 </head>
 <body class="bg-blue-400">
 <div onClick="window.open('http://127.0.0.1:5000/');"
-     class="flex items-center justify-center h-14 w-32 bg-black cursor-pointer hover:shadow hover:bg-gray-700"><span
-        class="flex inline-block align-middle justify-center items-center font-light text-stone-50 font-sans">На главную</span>
+     class="flex items-center justify-center place-content-center mx-2 my-2 h-20 w-48 bg-black cursor-pointer hover:shadow hover:bg-gray-700"><span
+        class="flex mx-2 justify-center items-center font-light text-3xl text-stone-50 font-sans">На главную</span>
 </div>
 <div class="flex items-center justify-center font-sans h-24 bg-amber-500 mx-16 my-6 rounded-lg"><span class="text-6xl">Выберете фото для анализа нейросетью в поле ниже</span>
 </div>
@@ -22,7 +22,7 @@
         <div class="m-4">
             <div class="flex items-center justify-center w-full h-[500px] cursor-pointer">
                 <label
-                        class="flex flex-col w-full h-[500px] cursor-pointer border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
+                        class="input-file flex flex-col w-full h-[500px] cursor-pointer border-4 border-dashed hover:bg-gray-100 hover:border-gray-300">
                     <div class="relative flex flex-col items-center justify-center pt-7">
                         <img id="preview" class="absolute inset-0 h-[500px]">
                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -61,24 +61,29 @@
 </script>
 
 
-<div class="flex items-center justify-center w-full mt-10 mb-3 h-20 bg-red-700 rounded-lg"><span id="information"
-                                                                           class="text-3xl text-stone-50 font-sans"></span>
+<div class="flex items-center justify-center w-full mt-16 mb-3 h-20 bg-red-700 rounded-lg"><span id="information"
+                                                                                                 class="text-3xl text-stone-50 font-sans"></span>
 </div>
 
 <script>
     function check() {
-
-        if (!(document.getElementById('preview').src)) {
-            info = 'НЕТ ФОТО';
-        }
-        if (0) {
-            info = 'Пользователь не опознан';
-        }
-        if (document.getElementById('preview').src) {
-            info = 'Пользователь: Филинов Леонид. Доступ Разрешён.'
-        }
-        document.getElementById('information').innerHTML = info;
+        alert('В процессе работы');
+        //     console.log(document.getElementById('preview').files[0].name);
+        //    if (!(document.getElementById('preview').src)) {
+        //       info = 'НЕТ ФОТО';
+        //   }
+        //   if ((document.getElementById('preview').files[0].name).includes('Leonid')) {
+        //        info = 'Пользователь: Филинов Леонид. Доступ Разрешён.';
+        //   }
+        //   if ((document.getElementById('preview').files[0].name).includes('Sasha')) {
+        //      info = 'Пользователь: Евдокимов Александр. Доступ Разрешён.';
+        //   }
+        //   else {
+        //       info = 'Пользователь неопознан. Доступ не разрешён';
+        //   }
+        //   document.getElementById('information').innerHTML = info;
     }
+
 </script>
 </body>
 <style>
