@@ -1,16 +1,19 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from werkzeug.utils import secure_filename
+import foto
+from PIL import Image
 
 app = Flask(__name__)
 
 
-@app.route('/upload', methods=['POST'])
-def upload():
+@app.route('/process_photo', methods=['POST'])
+def process_photo():
     photo = request.files['photo']
-    filename = secure_filename(photo.filename)
-    photo.save(filename )
+    photo.save('to_model.jpg')
+    data = foto.predict(f'C:/Users/User/Desktop/project/to_model.jpg')
 
-    return 'foto zdes'
+    response = {'output': data}
+    return jsonify(response)
 
 
 @app.route('/')

@@ -19,78 +19,47 @@
 </div>
 <form id="uploadForm" class="flex items-center justify-center" enctype="multipart/form-data">
     <input type="file" name="photo" id="PhotoInput">
-    <input type="button" class="bg-white h-12 w-48" value="Загрузить" onclick="uploadPicture()">
+    <input type="submit" class="bg-white h-12 w-48" value="Загрузить" onclick="uploadPicture()">
 </form>
 <div class="flex items-center justify-center">
-    <div class="h-[500px] w-[400px]" id="preview"></div>
+    <img class="h-[500px] w-[400px]" id="photo-preview" src="#" alt="">
 </div>
-<div class="flex items-center justify-center w-full mt-8 mb-3 h-20 bg-red-700 rounded-lg"><span id="information"
+<div class="flex items-center justify-center w-full mt-8 mb-3 h-20 bg-red-700 rounded-lg"><span id="output"
                                                                                                  class="text-3xl text-stone-50 font-sans"></span>
 
 </div>
 <script>
-    const photoInput = document.getElementById('PhotoInput');
-    const preview = document.getElementById('preview');
+   $(document).ready(function() {
+            // Предпросмотр выбранного файла при изменении поля ввода
+            $('input[type="file"]').change(function() {
+                var file = $(this)[0].files[0];
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    $('#photo-preview').attr('src', reader.result);
+                }
+                reader.readAsDataURL(file);
+            });
 
-    // При изменении выбранного файла обновляем предпросмотр
-    photoInput.addEventListener('change', function () {
-        const file = photoInput.files[0]; // Получаем выбранный файл
+            // Обновление данных при отправке формы
+            $('form').submit(function(event) {
+                event.preventDefault();  // Предотвращение стандартной отправки формы
+                var formData = new FormData($(this)[0]);
 
-        // Создаем объект FileReader для чтения содержимого файла
-        const reader = new FileReader();
-
-        // Когда файл будет полностью прочитан, обновляем предпросмотр
-        reader.onload = function (e) {
-            const image = new Image(); // Создаем новый элемент <img>
-            image.src = e.target.result; // Загружаем файл в <img>
-            preview.innerHTML = ''; // Очищаем предпросмотр
-            preview.appendChild(image); // Добавляем <img> в предпросмотр
-        };
-
-        // Читаем содержимое выбранного файла как URL-адрес
-        reader.readAsDataURL(file);
-    });
-
-    function uploadPicture() {
-        var form = document.getElementById('uploadForm');
-        var formData = new FormData(form);
-
-        $.ajax({
-            url: '/upload',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                $('#result').text(response);
-                $('#photoInput').val('');
-            }
+                $.ajax({
+                    url: '/process_photo',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $('#output').text(response.output);
+                    }
+                });
+            });
         })
-
-    }
 </script>
 
 
-<script>
-    function check() {
-        alert('В процессе работы');
-        //     console.log(document.getElementById('preview').files[0].name);
-        //    if (!(document.getElementById('preview').src)) {
-        //       info = 'НЕТ ФОТО';
-        //   }
-        //   if ((document.getElementById('preview').files[0].name).includes('Leonid')) {
-        //        info = 'Пользователь: Филинов Леонид. Доступ Разрешён.';
-        //   }
-        //   if ((document.getElementById('preview').files[0].name).includes('Sasha')) {
-        //      info = 'Пользователь: Евдокимов Александр. Доступ Разрешён.';
-        //   }
-        //   else {
-        //       info = 'Пользователь неопознан. Доступ не разрешён';
-        //   }
-        //   document.getElementById('information').innerHTML = info;
-    }
-
-</script>
 </body>
 <style>
     img {
