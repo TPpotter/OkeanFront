@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from werkzeug.utils import secure_filename
 import foto
-from PIL import Image
+import os
 
 app = Flask(__name__)
 
@@ -13,6 +13,7 @@ def process_photo():
     data = foto.predict(f'C:/Users/User/Desktop/project/to_model.jpg')
 
     response = {'output': data}
+    os.remove('C:/Users/User/Desktop/project/to_model.jpg')
     return jsonify(response)
 
 

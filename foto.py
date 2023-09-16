@@ -40,5 +40,5 @@ def predict(img_path):
         cof.append(json_result['predictions'][0]['predictions'][i]['confidence'])
     ind = cof.index(max(cof))
     result = data[names[ind]]
-    return [result, names, cof]
+    return result
 print(*predict(r'oooo.jpg'), sep='\n')
